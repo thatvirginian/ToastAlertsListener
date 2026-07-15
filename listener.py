@@ -5,11 +5,9 @@ import os
 import select
 import sys
 import time
-
 import psycopg2
 import psycopg2.extensions
 from dotenv import load_dotenv
-
 from alerts.late_cash_void import handle_late_cash_void
 
 load_dotenv(override=True)
