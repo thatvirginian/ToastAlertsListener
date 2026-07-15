@@ -1,0 +1,24 @@
+sqlalchemy
+dotenv
+requests
+psycopg2
+pytz
+python-dateutil
+
+
+# Database
+sqlalchemy>=2.0,<3.0
+psycopg2-binary>=2.9        # PostgreSQL driver (binary = no build tools needed in container)
+
+# HTTP
+requests>=2.31
+
+# Date parsing
+python-dateutil>=2.9
+python-dotenv>=1.0
+# Logging — stdlib, no install needed:
+#   logging, datetime, os — all built-in
+
+
+
+
