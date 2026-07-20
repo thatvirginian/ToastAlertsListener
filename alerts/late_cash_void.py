@@ -159,6 +159,8 @@ def _build_card(data: dict) -> dict:
                                 {"title": "",               "value": ""},
                                 {"title": "Payment Type",   "value": data.get("payment_type", "N/A")},
                                 {"title": "Amount",         "value": amount},
+                                {"title": "",               "value": ""},
+                                {"title": "Order GUID",     "value": str(data.get("order_guid", "N/A"))},
                             ]
                         }
                     ]
