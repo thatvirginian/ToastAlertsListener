@@ -5,10 +5,13 @@ import os
 import select
 import sys
 import time
+
 import psycopg2
 import psycopg2.extensions
 from dotenv import load_dotenv
+
 from alerts.late_cash_void import handle_late_cash_void
+from alerts.high_comp import handle_high_comp
 
 load_dotenv(override=True)
 
@@ -24,6 +27,13 @@ logger = logging.getLogger("listener")
 # =============================================================================
 ALERT_HANDLERS = {
     "late_cash_void": handle_late_cash_void,
+    "high_comp":      handle_high_comp,
+}
+
+# Each alert type defines which field is its unique entity identifier
+ENTITY_GUID_FIELD = {
+    # "late_cash_void": "payment_guid",
+    "high_comp":      "check_guid",
 }
 
 
@@ -63,7 +73,8 @@ def process_notification(raw_payload, conn):
         return
 
     alert_type  = data.get("alert_type")
-    entity_guid = data.get("payment_guid")
+    guid_field  = ENTITY_GUID_FIELD.get(alert_type, "entity_guid")
+    entity_guid = data.get(guid_field)
 
     if not alert_type or not entity_guid:
         logger.warning(f"Payload missing alert_type or entity_guid: {data}")
